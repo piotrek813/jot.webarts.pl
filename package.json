@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.8.0",
-    "@astrojs/db": "^0.11.7",
     "@astrojs/mdx": "^3.1.2",
     "@astrojs/netlify": "^5.4.0",
     "astro": "^4.11.5",
