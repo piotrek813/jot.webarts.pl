@@ -1,0 +1,24 @@
+---
+export type Props = {
+	name: string,
+	placeholder: string
+}
+
+const inputProps = Astro.props;
+---
+
+<input type="email" {...inputProps} >
+
+<style>
+	input {
+		padding: 14px 23px;
+		border: 2px solid #BFC3E1;
+		background-color: #F7F7FD;
+		color: #7E82A6;
+		font-size: 16px;
+		line-height: 1.5;
+		border-radius: 4px;
+		width: 100%;
+	}
+
+</style>

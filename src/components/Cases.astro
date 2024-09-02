@@ -1,0 +1,102 @@
+---
+	export type Props = {
+		data: {
+			title:string,
+			subtitle:string, 
+			image: string 
+		}[]
+	}
+
+	const {data} = Astro.props;
+
+	import Device from "./Device.astro";
+---
+
+<section class="cases standard-width">
+{data.map(({title, subtitle, image}, idx) => (
+	<>
+		<div data-idx={idx} class:list={["case", {selected: idx === 0}, {last: idx === data.length -1}]}>
+		<h2>{title}</h2>
+		<p>{subtitle}</p>
+		</div>
+
+		<div class:list={["case-device", {selected: idx === 0}]}>
+			<Device image={image}/>
+		</div>
+	</>
+))}
+</section>
+
+<script>
+const cases = document.querySelectorAll('.case');
+const devices=document.querySelectorAll('.case-device');
+cases.forEach((e, idx) => e.addEventListener('click', () => {
+	cases.forEach((e) => e.classList.remove('selected'));
+	devices.forEach((e) => e.classList.remove('selected'));
+
+	cases.item(idx).classList.add('selected');
+	devices.item(idx).classList.add('selected');
+}));
+</script>
+
+<style>
+	.cases {
+		margin-top: var(--section-spacer);
+		display: grid;
+		row-gap: 60px;
+
+		@media screen and (min-width: 1274px) {
+			grid-template-columns: 1fr 1fr;
+			row-gap: 0;
+		}
+
+		.case-device {
+			display: flex;
+			justify-content: center;
+			align-items: start;
+
+			@media screen and (min-width: 1274px) {
+				&:not(.selected) {
+					display: none;
+				}
+
+				&.selected {
+						grid-column: 2/2;
+						grid-row: 1/4;
+				}
+			}
+		}
+
+		.case {
+			padding: 28px 0;
+
+			@media screen and (max-width: 1274px) {
+				text-align: center;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+			}
+
+			h2 {
+				margin-bottom: 6px;
+				font-size: var(--font-size-md);
+			}
+
+			@media screen and (min-width: 1274px) {
+				grid-column: 1/1;
+				padding: 28px 26px;
+
+				&:not(.last) {
+					border-bottom: 1px solid var(--color-border);
+				}
+
+				&.selected  {
+						background: var(--color-blue-light);
+				
+				}
+
+			}
+		}
+
+	}
+</style>

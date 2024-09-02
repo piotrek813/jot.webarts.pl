@@ -1,0 +1,23 @@
+---
+ export type Props = {
+	 links: {text: string, link: string}[]
+ }
+ const {links} =Astro.props;
+---
+
+<nav><ul>{links.map(({text, link}) => <li><a href={link}>{text}</a></li>)}</ul></nav>
+
+<style>
+	ul {
+		padding: 21px 0;
+		display: flex;
+		gap: 35px;
+		justify-content: center;
+	}
+
+	a {
+		font-size: var(--font-size-md);
+		color: var(--color-font-on-light);
+		text-decoration: none;
+	}
+</style>

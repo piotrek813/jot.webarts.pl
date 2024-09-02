@@ -1,0 +1,128 @@
+---
+import Button from './Button.astro';
+import TextInput from './input/TextInput.astro';
+---
+<header class="standard-width moral-absolute">
+	<h1><slot name="title"/></h1>
+	<p><slot name="subtitle"/></p>
+
+	<img class="mere-subject spade" src="/bg/spade.png"/>
+	<img class="mere-subject heart" src="/bg/heart.png"/>
+	<img class="mere-subject dino" src="/bg/dino.png"/>
+	<img class="mere-subject cat" src="/bg/cat.png"/>
+	<img class="mere-subject ghost" src="/bg/ghost.png"/>
+
+
+	<form>
+		<TextInput name="email" placeholder='Twój adres e-mail'/>
+		<Button type='primary' wide>Wyślij</Button>
+	</form>
+</header>
+
+
+<script>
+document.querySelector('form')?.addEventListener('submit', async (e) => {
+	e.preventDefault();
+
+	const form = e.target;
+	if (form === null) return;
+	if(!(form instanceof HTMLFormElement)) return;
+
+	const formData = new FormData(form);
+
+	const formChildren = form.querySelectorAll('*');
+	const loader = form.querySelector('.progress-indicator');
+	if (loader === null) return;
+
+	formChildren.forEach(e => e.setAttribute("disabled", ""));
+	// loader.classList.toggle('loading');
+
+	await fetch('/api/email', {
+		method: "POST",
+		body: formData
+	});
+
+	formChildren.forEach(e => e.removeAttribute("disabled"));
+	// loader.classList.toggle('loading');
+});
+</script>
+
+<style>
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 21px;
+
+	padding-block: 150px;
+	text-align: center;
+
+	h1, p {
+		max-width: 732px
+	}
+	
+	h1 {
+		font-size: var(--font-size-xl);
+
+		@media screen and (min-width: 1274px){
+			font-size: var(--font-size-xxl);
+		}
+	}
+
+	p {
+		font-size: var(--font-size-md);
+		@media screen and (min-width: 1274px){
+			font-size: var( --font-size-lg);
+		}
+	}
+}
+
+form {
+	display: flex;
+	gap: 11px;
+	flex-direction: column;
+
+	@media screen and (min-width: 1274px){
+		flex-direction: row;
+	}
+}
+
+.moral-absolute {
+	position: relative;
+
+	.mere-subject {
+		position: absolute;
+		opacity: 5%;
+	}
+
+	.ghost {
+		top: 119px;
+		left: 30px;
+		opacity: 10%;
+		rotate: 11deg;
+	}
+
+	.spade {
+		bottom: 50px;
+		left: 50px;
+		rotate: 21deg;
+	}
+
+	.heart {
+		top: 76px;
+		right: 112px;
+		rotate: 13deg;
+	}
+
+	.cat {
+		bottom: -100px;
+		right: 373px;
+	}
+
+	.dino {
+		bottom: 47px;
+		right: 55px;
+	}
+}
+
+</style>

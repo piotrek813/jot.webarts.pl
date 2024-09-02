@@ -1,0 +1,73 @@
+---
+export type Props = {
+	href?: string,
+	type?: 'primary' | 'contrast' | 'textOnly',
+	wide?: boolean,
+}
+
+const {href, type = 'primary', wide = false} = Astro.props;
+const isLink = href !== undefined;
+
+const isExternalURL = (url: string) => {
+	try {
+	 new URL(url).origin !== location.origin;
+	} catch {
+		return false;
+	}
+
+	return true;
+}
+---
+
+{isLink && <a  class:list={["button", type, {wide}]} href={href}><slot/> {isExternalURL(href) &&<img src="/icon/arrow_forward.svg" />}</a>}
+{!isLink && <button class:list={["button", type, {wide}]}> <slot /></button>}
+
+<style >
+	.button {
+		&.primary {
+			background-color: var(--color-primary);
+			color: var(--color-font-on-dark);
+		}
+
+		&.contrast {
+			background-color: var(--color-button-primary);
+			color: var(--color-font-button-primary);
+		}
+
+		&.textOnly {
+			background: none;
+			color: var(--color-font-on-light);
+		}
+
+		border-radius: var(--border-radius-button);
+		padding: 7px 9px;
+
+		&.wide {
+			padding: 14px 34px;
+		}
+
+		font-size: var(--font-size-button-primary);
+
+		&:is(a) {
+			text-decoration: none;
+		}
+
+		&:is(button) {
+			border: none;
+		}
+
+		&:has(img) {
+			display: inline-flex;
+			gap: 5px;
+			align-items: center;
+		}
+
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		@media screen and (max-width: 1274px) {
+			justify-content: center;
+		}
+	}
+</style>

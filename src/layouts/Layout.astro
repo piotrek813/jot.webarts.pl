@@ -1,0 +1,124 @@
+---
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+
+import Navbar from '../components/Navbar.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<!-- <Navbar links={[{text: "Gadacz", link: "gadacz.webarts.pl"},{text: "Jot", link: "gadacz.webarts.pl"},{text: "Kup kawę", link: "gadacz.webarts.pl"}, {text: "Newsletter", link: "gadacz.webarts.pl"} ]} /> -->
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+body{
+	--color-primary: #676DF4;
+	--color-blue-light: #EFF0FF;
+	--color-font-on-light: #1C1B1F;
+	--color-font-on-dark: #ffffff;
+
+	--font-size-xxl: 61px;
+	--font-size-xl: 36px;
+	--font-size-ml: 30px;
+	--font-size-lg: 24px;
+	--font-size-md: 20px;
+	--font-size-smd: 18px;
+	--font-size-nm: 16px;
+	--font-size-sm: 15px;
+
+	/* Buttons */
+	--color-button-primary: #25103D;
+	--color-font-button-primary: var(--color-font-on-dark);
+	--border-radius-button: 5px;
+	--font-size-button-primary: 18px;
+
+	--color-border: #0000001a;
+
+	/* device mockups*/
+	--color-device-border: #000000;
+	--border-radius-device: 6px;
+	--border-device: 6px solid var(--color-device-border);
+
+	--layout-max: 1274px;
+	--layout-gutter: 32px;
+	--section-spacer: 80px;
+
+	@media screen and (min-width: 1274px){
+		--layout-gutter: 125px;
+		--section-spacer: 100px;
+	}
+}
+
+html {
+	font-family: 'Poppins', sans-serif;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+
+	color: var(--color-font-on-light);
+}
+
+img, picture, video, canvas, svg {
+	display: block;
+	max-width: 100%;
+}
+
+input, button, textarea, select {
+	font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+	overflow-wrap: break-word;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	line-height: 1.1;
+
+	.colored {
+		color: var(--color-primary);
+	}
+}
+
+p {
+	line-height: 1.5;
+}
+
+.standard-width {
+	max-width: var(--layout-max);
+	padding-inline: var(--layout-gutter);
+	margin: auto;
+}
+
+ul, ol {
+	list-style-type: none;
+}
+</style>

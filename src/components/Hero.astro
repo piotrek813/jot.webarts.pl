@@ -1,0 +1,73 @@
+---
+interface Props {
+	image: string;
+}
+
+const { image} = Astro.props;
+
+import Device from "./Device.astro";
+---
+
+<header>
+	<div class="standard-width">
+		<div class="bg"></div>
+		<h1><slot name="title"/></h1>
+		<p><slot name="subtitle"/></p>
+
+		<div class="cta">
+		<slot name="cta"/>
+		</div>
+		
+		<div class="device">
+		<Device image={image}/>
+		</div>
+	</div>
+</header>
+
+<style>
+header {
+	padding-top: 56px;
+	position: relative;
+
+	.bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 64%;
+		background-color: var(--color-primary);
+		background-image: url(/hero-waves.svg);
+
+		z-index: -1;
+	}
+
+	.standard-width {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 21px;
+
+		color: var(--color-font-on-dark);
+		text-align: center;
+
+		h1 {
+			font-size: var(--font-size-xl);
+
+			@media screen and (min-width: 1274px){
+				font-size: var(--font-size-xxl);
+			}
+		}
+
+		p {
+			font-size: var(--font-size-md);
+			@media screen and (min-width: 1274px){
+				font-size: var( --font-size-lg);
+			}
+		}
+
+		.device {
+			margin-top: 48px;
+		}
+	}
+}
+</style>

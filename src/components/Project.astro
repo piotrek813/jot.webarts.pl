@@ -1,0 +1,69 @@
+---
+export type Props = {
+	color: string;
+	link: string;
+}
+
+const {color, link} = Astro.props;
+---
+
+<section class="standard-width">
+	<div class="bg" style={`background-color: ${color};`}></div>
+	<div>
+		<h1><slot name="title"/></h1>
+		<p><slot name="subtitle"/></p>
+
+		<a  href={link}>Zobacz</a>
+	</div>
+</section>
+
+<style>
+section {
+	margin-top: var(--section-spacer);
+	position: relative;
+
+	@media screen and (max-width: 1274px){
+		margin-inline: var(--layout-gutter);
+	}
+
+	.bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	
+		background-image: url(/hero-waves.svg);
+		height: 100%;
+
+		z-index: -1;
+	}
+
+	>div {
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding-block: 100px;
+
+		color: var(--color-font-on-dark);
+
+		h1 {
+			font-size: var(--font-size-xl);
+
+			@media screen and (min-width: 1274px){
+				font-size: var(--font-size-xxl);
+			}
+		}
+
+		p {
+			font-size: var(--font-size-md);
+		}
+
+		a {
+			color: var(--color-font-on-dark);
+			font-size: var(--font-size-md);
+			text-decoration: none;
+		}
+	}
+}
+</style>

@@ -1,0 +1,40 @@
+<section class="standard-width">
+	<h2><slot name="title"/></h2>
+	<p><slot name="subtitle"/></p>
+	
+	<div class="cta">
+		<slot name="cta"/>
+	</div>
+</section>
+
+<style>
+	section {
+		margin-top: var(--section-spacer);
+		padding-block: 56px;
+
+		@media screen and (min-width: 1274px) {
+			padding-block: 71px;
+		}
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+
+		h2 {
+			font-size: var(--font-size-ml);
+			margin-bottom: 10px;
+
+			@media screen and (min-width: 1274px) {
+				font-size: var(--font-size-xl);
+			}
+		}
+
+		&:has(.cta) p {
+			margin-bottom: 38px;
+		}
+	}
+
+</style>
+
+

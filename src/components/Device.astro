@@ -1,0 +1,18 @@
+---
+export type Props = {
+	image: string;
+}
+
+const {image} = Astro.props;
+---
+
+<img src={image} alt="">
+
+<style>
+		img {
+			border: var(--border-device);
+			border-radius: var(--border-radius-device);
+			max-width: 220px;
+		}
+</style>
+

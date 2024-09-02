@@ -1,0 +1,82 @@
+---
+export type Props = {
+	simple: boolean;
+	wide: boolean;
+	center: boolean;
+}
+
+const {simple = false, wide = false, center=false} = Astro.props;
+---
+
+<footer class:list={[{simple},{wide}, {center}]}>
+	{!simple &&  
+		<div class="standard-width">
+			<div class="links">
+				<slot />
+			</div>
+
+			<p> &copy; 2023 - {new Date().getFullYear()} Gadacz </p>
+	</div>}
+
+	{simple &&  
+		<div class="standard-width">
+			<p> &copy; 2023 - {new Date().getFullYear()} Gadacz </p>
+			<slot />
+	</div>}
+</footer>
+
+<style is:global>
+footer {
+	margin-top: var(--section-spacer);
+	border-top: 1px solid var(--color-border);
+
+	> div { 
+		font-size: var(--font-size-sm);
+		padding-block: 17px;
+
+		ul {
+			padding: 0;
+		}
+	}
+
+
+	&.wide {
+		.standard-width {
+			padding-inline: 0;
+		}
+	}
+
+	&.simple {
+		> div {
+			display: flex;
+			justify-content: space-between;
+			ul {
+				display: flex;
+				gap: 20px;
+			}
+		}
+	}
+
+	&:not(.simple) {
+		> div {
+			.links {
+				display: flex;
+				column-gap: 58px;
+				row-gap: 28px;
+				flex-wrap: wrap;
+				margin-bottom: 28px;
+			}
+
+			ul {
+				:first-child {
+					font-weight: 500;
+				}
+			}
+		}
+	}
+
+	&.center >div {
+		justify-content: center;	
+	}
+}
+</style>
