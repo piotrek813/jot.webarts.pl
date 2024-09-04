@@ -6,6 +6,11 @@ export type Props = {
 }
 
 const {simple = false, wide = false, center=false} = Astro.props;
+
+const currentYear = (new Date()).getFullYear();
+const firstYear = 2024;
+const project = "Jot";
+const copyright = `${firstYear} ${firstYear !== currentYear ? `- ${currentYear}` : ""} ${project}`
 ---
 
 <footer class:list={[{simple},{wide}, {center}]}>
@@ -15,12 +20,12 @@ const {simple = false, wide = false, center=false} = Astro.props;
 				<slot />
 			</div>
 
-			<p> &copy; 2023 - {new Date().getFullYear()} Gadacz </p>
+			<p> &copy; {copyright} </p>
 	</div>}
 
 	{simple &&  
 		<div class="standard-width">
-			<p> &copy; 2023 - {new Date().getFullYear()} Gadacz </p>
+			<p> &copy; {copyright} </p>
 			<slot />
 	</div>}
 </footer>
